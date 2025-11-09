@@ -1,0 +1,35 @@
+{
+  "manifest_version": 1,
+  "version": 1,
+  "type": "APP",
+  "desktop": {
+    "js": [
+      "js/desktop.js"
+    ],
+    "css": []
+  },
+  "icon": "image/icon.png",
+  "config": {
+    "html": "html/config.html",
+    "js": [
+      "js/config.js"
+    ],
+    "css": [
+      "css/51-modern-default.css",
+      "css/config.css"
+    ],
+    "required_params": []
+  },
+  "homepage_url": {
+    "ja": "https://x.com/r3yamauchi",
+    "en": "https://x.com/r3yamauchi"
+  },
+  "name": {
+    "ja": "ショートカットキー ON/OFF",
+    "en": "Shortcut toggle plugin"
+  },
+  "description": {
+    "ja": "kintoneアプリの各画面でショートカットキーの有効・無効を切り替えます",
+    "en": "Configure which keyboard shortcuts stay enabled on each kintone screen."
+  }
+}

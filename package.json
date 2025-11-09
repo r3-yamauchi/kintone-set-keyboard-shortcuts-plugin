@@ -1,0 +1,26 @@
+{
+  "name": "kintone-set-keyboard-shortcuts-plugin",
+  "description": "kintone keyboard shortcut toggle plugin",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "kintone-plugin-packer --ppk private.ppk --out dist/plugin.zip src",
+    "upload": "kintone-plugin-uploader dist/plugin.zip --watch --waiting-dialog-ms 3000"
+  },
+  "keywords": [
+    "kintone",
+    "keyboard shortcuts",
+    "productivity"
+  ],
+  "author": {
+    "name": "r3-yamauchi",
+    "url": "https://x.com/r3yamauchi"
+  },
+  "license": "AGPL-3.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@kintone/plugin-packer": "^9.0.0",
+    "@kintone/plugin-uploader": "^10.0.0"
+  }
+}

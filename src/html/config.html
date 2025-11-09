@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ショートカットキー設定</title>
+</head>
+<body>
+  <div class="shortcut-config">
+    <header class="shortcut-config__header">
+      <h1 class="shortcut-config__title">ショートカットキー設定</h1>
+      <p class="shortcut-config__lead">
+        各画面で利用するショートカットキーをトグルで選択し、不要なショートカットは無効化してください。
+      </p>
+    </header>
+    <main class="shortcut-config__main">
+      <section class="shortcut-config__section shortcut-config__section--hint">
+        <h2 class="shortcut-config__heading">操作のヒント</h2>
+        <ul class="shortcut-config__list">
+          <li>各ショートカットのトグルで有効／無効を切り替えられます。</li>
+          <li>「一括で有効にする」トグルを使うと、その画面に含まれるショートカットを一括で有効／無効にできます。</li>
+          <li>変更内容は保存してアプリの設定を更新するまで反映されません。</li>
+        </ul>
+      </section>
+      <div id="shortcut-config-screens" class="shortcut-config__screen-list"></div>
+    </main>
+    <footer class="shortcut-config__footer">
+      <button type="button" id="plugin-submit" class="shortcut-config__button shortcut-config__button--primary">保存</button>
+      <button type="button" id="plugin-cancel" class="shortcut-config__button shortcut-config__button--secondary">キャンセル</button>
+    </footer>
+  </div>
+</body>
+</html>
