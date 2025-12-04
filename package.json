@@ -1,32 +1,55 @@
 {
   "name": "kintone-set-keyboard-shortcuts-plugin",
-  "description": "kintone keyboard shortcut toggle plugin",
   "version": "0.1.0",
-  "scripts": {
-    "start": "node scripts/npm-start.js",
-    "upload": "cli-kintone plugin upload --input dist/plugin.zip --watch",
-    "develop": "npm run build -- --watch",
-    "keygen": "cli-kintone plugin keygen --output private.ppk",
-    "build": "cli-kintone plugin pack --private-key private.ppk --output dist/plugin.zip --input src/manifest.json",
-    "lint": "eslint ."
-  },
+  "description": "kintone keyboard shortcut toggle plugin",
   "keywords": [
     "kintone",
     "keyboard shortcuts",
     "productivity"
   ],
+  "license": "AGPL-3.0",
   "author": {
     "name": "r3-yamauchi",
     "url": "https://yamauchi.win"
   },
-  "license": "AGPL-3.0",
-  "engines": {
-    "node": ">=20"
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "run-s build:js build:package",
+    "build:js": "rsbuild build",
+    "build:package": "kintone-plugin-packer --ppk private.ppk --out dist/plugin.zip lib",
+    "fix": "run-p fix:*",
+    "fix:eslint": "run-s 'lint:eslint -- --fix'",
+    "fix:prettier": "run-s 'lint:prettier -- --write'",
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint . --max-warnings 0",
+    "lint:prettier": "prettier --check '**/*.{json,json5,md,yml,yaml}' --cache",
+    "start": "node scripts/npm-start.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "upload": "cli-kintone plugin upload --input dist/plugin.zip --watch"
+  },
+  "dependencies": {
+    "@kintone/rest-api-client": "^6.1.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
-    "@cybozu/eslint-config": "^24.3.0",
-    "@kintone/cli": "^1.15.0",
-    "npm-run-all": "^4.1.5",
-    "eslint": "^9.39.1"
+    "@cybozu/eslint-config": "^25.0.0",
+    "@kintone/cli": "^1.16.1",
+    "@kintone/dts-gen": "^9.0.0",
+    "@kintone/plugin-packer": "^9.0.0",
+    "@rsbuild/core": "^1.6.12",
+    "@rsbuild/plugin-react": "^1.4.2",
+    "@rsbuild/plugin-type-check": "^1.3.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.1",
+    "eslint-plugin-package-json": "^0.85.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

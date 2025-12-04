@@ -28,6 +28,55 @@
 - 対象イベント（一覧：`app.record.index.show`、詳細／編集：`app.record.detail.show` `app.record.edit.show`、追加／再利用：`app.record.create.show`）で設定値を読み込み `kintone.setKeyboardShortcuts` を呼び出します。
 - すべて有効の場合は `true`、すべて無効の場合は `false`、混在する場合は「アクション名 → 真偽値」のオブジェクトを渡します。
 
+---
+
+## 開発者向け情報
+
+このプロジェクトは [kintone-plugin-template](https://github.com/tasshi-me/kintone-plugin-template) をベースに移行されました。
+
+### 必要要件
+
+- Node.js (`.node-version`ファイルで指定されたバージョンを推奨)
+- npm
+
+### セットアップ
+
+```bash
+# 依存関係のインストール
+npm install
+
+# プライベートキーの生成（初回のみ）
+npx @kintone/plugin-packer --ppk private.ppk --init
+```
+
+### 開発コマンド
+
+| コマンド                | 説明                                             |
+| ----------------------- | ------------------------------------------------ |
+| `npm start`             | 開発サーバー起動（ビルド + アップロード + 監視） |
+| `npm run build`         | プロダクションビルド                             |
+| `npm run build:js`      | JavaScriptのビルドのみ                           |
+| `npm run build:package` | プラグインパッケージの作成のみ                   |
+| `npm run lint`          | リントチェック                                   |
+| `npm run fix`           | リントの自動修正                                 |
+| `npm run upload`        | プラグインのアップロード                         |
+
+### プロジェクト構造
+
+```
+.
+├── src/
+│   ├── config/          # 設定画面（React）
+│   ├── desktop/         # デスクトップ版（TypeScript）
+│   ├── helpers/         # ヘルパー関数
+│   └── types/           # 型定義
+├── public/
+│   └── manifest.json    # プラグインマニフェスト
+├── lib/                 # ビルド出力先
+├── dist/                # プラグインパッケージ出力先
+└── rsbuild.config.ts    # Rsbuild設定
+```
+
 ## ライセンス
 
 - 本プラグインは AGPL-3.0 ライセンスです。

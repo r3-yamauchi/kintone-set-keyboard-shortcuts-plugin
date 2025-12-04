@@ -1,26 +1,29 @@
-dist/
-private.ppk
+## Editors
+.vscode/*
+!.vscode/extensions.json
+.idea
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+## Dependencies
+node_modules
 
-# OS
+## Env
+.env
+.envrc
+
+## Private Key
+*.ppk
+
+## Logs
+*.log*
+npm-debug.log*
+
+## Artifacts
+/lib
+/dist
+
+# Profile
+.rspack-profile-*/
+
+## Misc
 .DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Test coverage
-coverage/
-
-# Temporary files
-*.tmp
-temp/
-
-# Node.js (npm packages are downloaded but not tracked)
-node_modules/
+*.local
