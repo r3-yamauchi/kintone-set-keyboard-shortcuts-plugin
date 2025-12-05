@@ -1,3 +1,6 @@
+// App.tsx: プラグイン設定画面のReactコンポーネント。ショートカット有効/無効を画面別に切り替えるUIを提供する。
+// どこで: プラグインの設定ページ内でレンダリングされ、kintoneのプラグインIDを受け取って動作する。
+// なぜ: 設定値を視覚的に編集し、利用者が安全に保存できるようにするため。
 import { getPluginConfig, setPluginConfig } from "../helpers/plugin.ts";
 import { useState, useEffect } from "react";
 
@@ -71,9 +74,11 @@ type Props = {
 };
 
 function App({ pluginId }: Props) {
+  // settings: 画面ID→アクションID→有効/無効 のマップ。チェックボックス状態と双方向バインド。
   const [settings, setSettings] = useState<Settings>({});
 
   useEffect(() => {
+    // 初回マウント時に保存済み設定を読み込み、未設定部分はデフォルトtrueで埋める。
     const config = getPluginConfig(pluginId);
     const rawSettings = config.shortcutSettings;
 
@@ -88,7 +93,7 @@ function App({ pluginId }: Props) {
     if (rawSettings) {
       try {
         const parsed = JSON.parse(rawSettings);
-        // Merge stored settings with defaults
+        // 保存済み設定をデフォルトへマージし、未設定のアクションは安全側で有効にしておく。
         SCREEN_DEFINITIONS.forEach(screen => {
           if (parsed[screen.id]) {
             screen.actions.forEach(action => {
@@ -99,12 +104,14 @@ function App({ pluginId }: Props) {
           }
         });
       } catch (e) {
-        console.warn('Failed to parse settings', e);
+        // パース失敗時はデフォルト設定にフォールバックして動作継続する。
+        console.warn('設定の読み込みに失敗しました', e);
       }
     }
     setSettings(defaultSettings);
   }, [pluginId]);
 
+  // 単一アクションのトグル更新。screenId/actionIdをキーにimmutableに状態更新。
   const handleToggle = (screenId: string, actionId: string, checked: boolean) => {
     setSettings(prev => ({
       ...prev,
@@ -115,6 +122,7 @@ function App({ pluginId }: Props) {
     }));
   };
 
+  // 画面内の全アクションをまとめてON/OFFするマスター切り替え。
   const handleMasterToggle = (screenId: string, checked: boolean) => {
     setSettings(prev => {
       const newScreenSettings = { ...prev[screenId] };
@@ -128,12 +136,14 @@ function App({ pluginId }: Props) {
     });
   };
 
+  // JSON文字列として保存し、kintoneの設定保存完了後に設定画面一覧へ戻す。
   const handleSave = async () => {
     await setPluginConfig({ shortcutSettings: JSON.stringify(settings) });
     alert('設定を保存しました。アプリの設定を更新すると反映されます。');
     window.location.href = `../../flow?app=${kintone.app.getId()}`;
   };
 
+  // 変更を破棄してプラグイン一覧へ戻る。
   const handleCancel = () => {
     window.location.href = `../../${kintone.app.getId()}/plugin/`;
   };
@@ -167,6 +177,7 @@ function App({ pluginId }: Props) {
                     className="shortcut-config__toggle-input"
                     checked={allChecked}
                     ref={el => {
+                      // 全選択のチェック状態に応じて中間状態を反映し、UIの誤解を防ぐ。
                       if (el) el.indeterminate = isIndeterminate;
                     }}
                     onChange={(e) => handleMasterToggle(screen.id, e.target.checked)}
